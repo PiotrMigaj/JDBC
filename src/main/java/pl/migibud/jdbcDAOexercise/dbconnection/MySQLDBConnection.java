@@ -1,6 +1,7 @@
 package pl.migibud.jdbcDAOexercise.dbconnection;
 
 import pl.migibud.jdbcDAOexercise.configuration.DBConnectionConfigStrategy;
+import pl.migibud.jdbcDAOexercise.configuration.DatabaseAtHomeConfiguration;
 import pl.migibud.jdbcDAOexercise.configuration.DatabaseAtWorkConfiguration;
 
 import java.sql.Connection;
@@ -9,7 +10,7 @@ import java.sql.SQLException;
 
 public enum MySQLDBConnection {
 
-	MY_SQL(new DBConnectionConfigStrategy(new DatabaseAtWorkConfiguration()));
+	MY_SQL(new DBConnectionConfigStrategy(new DatabaseAtHomeConfiguration()));
 
 	MySQLDBConnection(DBConnectionConfigStrategy strategy) {
 		this.connection = buildConnection(strategy.getURL(),strategy.getUSER(),strategy.getPASSWORD());

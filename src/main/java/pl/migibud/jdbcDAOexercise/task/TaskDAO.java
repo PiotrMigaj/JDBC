@@ -74,7 +74,13 @@ public class TaskDAO implements AbstractDAOInterface<Task>{
 	}
 
 	@Override
-	public List<Task> readAll() {
+	public List<Task> readAll() throws SQLException {
+		Connection connection = MySQLDBConnection.MY_SQL.getConnection();
+		PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM task");
+		ResultSet resultSet = preparedStatement.executeQuery();
+
+		List<>
+
 		return null;
 	}
 
