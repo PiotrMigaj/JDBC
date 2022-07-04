@@ -1,9 +1,11 @@
 package pl.migibud.jdbcDAOexercise.task;
 
 import pl.migibud.jdbcDAOexercise.dbconnection.MySQLDBConnection;
+import pl.migibud.jdbcDAOexercise.exceptions.DuplicatedIDException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
@@ -34,6 +36,9 @@ public class TaskDAO implements AbstractDAOInterface<Task>{
 	}
 
 	private void insertTaskWithNotNullIdIntoDB(Connection connection,Long id, String description, Long userId) throws SQLException {
+		if (isUserWithNotNullIDInDB(connection,id)){
+			throw new DuplicatedIDException(id);
+		}
 		PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO task VALUES(?,?,?)");
 		preparedStatement.setLong(1, id);
 		preparedStatement.setString(2, description);
@@ -43,9 +48,29 @@ public class TaskDAO implements AbstractDAOInterface<Task>{
 		preparedStatement.close();
 	}
 
+	private boolean isUserWithNotNullIDInDB(Connection connection,Long id) throws SQLException {
+		PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM task WHERE id=?");
+		preparedStatement.setLong(1,id);
+		ResultSet resultSet = preparedStatement.executeQuery();
+		return resultSet.next();
+	}
+
 	@Override
-	public Optional<Task> read(Long id) {
-		return Optional.empty();
+	public Optional<Task> read(Long id) throws SQLException {
+		Connection connection = MySQLDBConnection.MY_SQL.getConnection();
+		PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM task WHERE id=?");
+		preparedStatement.setLong(1,id);
+		ResultSet resultSet = preparedStatement.executeQuery();
+
+		Task task = null;
+
+		while (resultSet.next()){
+			String description = resultSet.getString("description");
+			Long userId = resultSet.getLong("user_id");
+			task = new Task(id,description,userId);
+		}
+
+		return Optional.ofNullable(task);
 	}
 
 	@Override

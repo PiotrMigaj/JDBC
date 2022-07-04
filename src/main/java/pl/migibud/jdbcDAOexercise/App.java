@@ -9,6 +9,7 @@ import pl.migibud.jdbcDAOexercise.task.TaskDAO;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Optional;
 
 public class App {
 
@@ -23,8 +24,11 @@ public class App {
 //		System.out.println(dbConnectionConfigStrategy.getURL());
 
 		AbstractDAOInterface<Task> abstractDAOInterface = new TaskDAO();
-		abstractDAOInterface.create(new Task("cos do zrobienia 55",2L));
+//		abstractDAOInterface.create(new Task("cos do zrobienia 55",2L));
 		abstractDAOInterface.create(new Task(60L,"cos do zrobienia 60",1L));
+
+//		Optional<Task> read = abstractDAOInterface.read(100L);
+//		System.out.println(read.orElse(new Task(null,null)));
 
 		MySQLDBConnection.MY_SQL.closeConnection();
 	}
