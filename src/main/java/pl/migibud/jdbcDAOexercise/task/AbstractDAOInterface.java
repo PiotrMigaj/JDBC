@@ -10,8 +10,8 @@ public interface AbstractDAOInterface<T extends Serializable> {
 	void create(T t) throws SQLException;
 	Optional<T> read(Long id) throws SQLException;
 	List<T> readAll() throws SQLException;
-	void update(T t);
-	void delete(Long id);
-	List<T> readAllForUser(String username);
+	void update(T t) throws SQLException;
+	void delete(Long id) throws SQLException;
+	List<T> readAllForUser(String username) throws SQLException;
 
 }

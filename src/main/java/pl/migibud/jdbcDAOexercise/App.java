@@ -1,15 +1,12 @@
 package pl.migibud.jdbcDAOexercise;
 
-import pl.migibud.jdbcDAOexercise.configuration.DBConnectionConfigStrategy;
-import pl.migibud.jdbcDAOexercise.configuration.DatabaseAtHomeConfiguration;
 import pl.migibud.jdbcDAOexercise.dbconnection.MySQLDBConnection;
 import pl.migibud.jdbcDAOexercise.task.AbstractDAOInterface;
 import pl.migibud.jdbcDAOexercise.task.Task;
 import pl.migibud.jdbcDAOexercise.task.TaskDAO;
 
-import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.Optional;
+import java.util.List;
 
 public class App {
 
@@ -25,10 +22,20 @@ public class App {
 
 		AbstractDAOInterface<Task> abstractDAOInterface = new TaskDAO();
 //		abstractDAOInterface.create(new Task("cos do zrobienia 55",2L));
-		abstractDAOInterface.create(new Task(60L,"cos do zrobienia 60",1L));
-
+//		Optional<Task> read = abstractDAOInterface.read(60L);
+//		System.out.println(read.get());
 //		Optional<Task> read = abstractDAOInterface.read(100L);
 //		System.out.println(read.orElse(new Task(null,null)));
+
+//		List<Task> tasks = abstractDAOInterface.readAll();
+//		tasks.stream().forEach(System.out::println);
+
+//		abstractDAOInterface.update(new Task(500L,"Jo JO JO jjs",2L));
+
+//		abstractDAOInterface.delete(80L);
+
+		List<Task> tasks = abstractDAOInterface.readAllForUser("dn");
+		tasks.forEach(System.out::println);
 
 		MySQLDBConnection.MY_SQL.closeConnection();
 	}

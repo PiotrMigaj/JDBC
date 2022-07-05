@@ -1,4 +1,4 @@
-package pl.migibud.jdbcDAOexercise.configuration;
+package pl.migibud.jdbcDAOexercise.dbconfiguration;
 
 public class DatabaseAtHomeConfiguration implements Configuration{
 	@Override
