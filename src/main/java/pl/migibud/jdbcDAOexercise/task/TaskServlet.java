@@ -20,14 +20,22 @@ public class TaskServlet extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String id = req.getParameter("id");
-		logger.info(id);
-		String description = req.getParameter("description");
-		logger.info(description);
-		String userId = req.getParameter("userId");
-		logger.info(userId);
+//		String id = req.getParameter("id");
+//		logger.info(id);
+//		String description = req.getParameter("description");
+//		logger.info(description);
+//		String userId = req.getParameter("userId");
+//		logger.info(userId);
 
 
-		resp.getWriter().println("Hello from TaskServlet" + id +" "+description+" "+userId);
+//		resp.getWriter().println("Hello from TaskServlet" + id +" "+description+" "+userId);
+		resp.setContentType("text/html;charset=UTF-8");
+		resp.getWriter().println("Hello from TaskServlet POST");
+	}
+
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		resp.setContentType("text/html;charset=UTF-8");
+		resp.getWriter().println("Hello from TaskServlet");
 	}
 }
