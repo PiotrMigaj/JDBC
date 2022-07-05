@@ -20,7 +20,7 @@ public class App {
 //
 //		System.out.println(dbConnectionConfigStrategy.getURL());
 
-		AbstractDAOInterface<Task> abstractDAOInterface = new TaskDAO();
+//		AbstractDAOInterface<Task> abstractDAOInterface = new TaskDAO();
 //		abstractDAOInterface.create(new Task("cos do zrobienia 55",2L));
 //		Optional<Task> read = abstractDAOInterface.read(60L);
 //		System.out.println(read.get());
@@ -34,9 +34,9 @@ public class App {
 
 //		abstractDAOInterface.delete(80L);
 
-		List<Task> tasks = abstractDAOInterface.readAllForUser("dn");
-		tasks.forEach(System.out::println);
-
-		MySQLDBConnection.MY_SQL.closeConnection();
+//		List<Task> tasks = abstractDAOInterface.readAllForUser("dn");
+//		tasks.forEach(System.out::println);
+//
+//		MySQLDBConnection.MY_SQL.closeConnection();
 	}
 }
