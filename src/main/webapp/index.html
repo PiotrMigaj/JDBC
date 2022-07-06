@@ -39,7 +39,23 @@
             description: form.elements.description.value,
             userId: form.elements.userId.value
         };
-        fetch('http://localhost:8080/task?' + new URLSearchParams(task))
+        // fetch('http://localhost:8080/task?' + new URLSearchParams(task))
+        // .then((response)=>response.json())
+        // .then((json)=>{
+        //     div.innerHTML = `
+        //         <h1>${JSON.stringify(json)}</h1>
+            
+        //     `;
+        //     // console.log(json);
+        // });
+        fetch('http://localhost:8080/task',{
+            method: 'POST',
+            headers: {
+            ' Accept': 'application/json',
+            'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(task)
+        })
         .then((response)=>response.json())
         .then((json)=>{
             div.innerHTML = `

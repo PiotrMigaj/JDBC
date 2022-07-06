@@ -33,17 +33,20 @@ public class TaskServlet extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//		String id = req.getParameter("id");
-//		logger.info(id);
-//		String description = req.getParameter("description");
-//		logger.info(description);
-//		String userId = req.getParameter("userId");
-//		logger.info(userId);
-
-
-//		resp.getWriter().println("Hello from TaskServlet" + id +" "+description+" "+userId);
-		resp.setContentType("text/html;charset=UTF-8");
-		resp.getWriter().println("Hello from TaskServlet POST");
+		Task task = objectMapper.readValue(req.getInputStream(), Task.class);
+		resp.setContentType("application/json;charset=UTF-8");
+		try {
+			this.abstractDAOInterface.create(task);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		resp.setContentType("application/json;charset=UTF-8");
+		logger.info(String.valueOf(task));
+		try {
+			objectMapper.writeValue(resp.getOutputStream(),abstractDAOInterface.readAll());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
