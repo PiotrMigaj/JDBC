@@ -62,6 +62,10 @@ public class TaskServlet extends HttpServlet {
 		}
 		resp.setContentType("application/json;charset=UTF-8");
 		logger.info(String.valueOf(task));
-		objectMapper.writeValue(resp.getOutputStream(),task);
+		try {
+			objectMapper.writeValue(resp.getOutputStream(),abstractDAOInterface.readAll());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 }
