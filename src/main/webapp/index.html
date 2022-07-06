@@ -8,44 +8,47 @@
 <body>
 <div style="text-align: center;">
 <h1>Insert task for user:</h1>
-<form class="pure-form pure-form-aligned">
+<form id="welcome" class="pure-form pure-form-aligned">
     <fieldset>
         <div class="pure-control-group">
             <label for="aligned-name">Id</label>
             <input type="text" id="id" placeholder="Id" name="id" />
-        </div>
-        <div class="pure-control-group">
+            <br/>
             <label for="aligned-password">Description</label>
             <input type="text" id="description" placeholder="Description" name="description" />
-        </div>
-        <div class="pure-control-group">
+            <br/>
             <label for="aligned-email">User Id</label>
             <input type="text" id="userId" placeholder="User Id" name="userId" />
-        </div>
-        <div class="pure-controls">
+            <br/>
             <button class="pure-button pure-button-primary" id="addTask" >Submit</button>
         </div>
     </fieldset>
 </form>
+<div id="welcomeDiv" style="width: 40%; margin: 0 auto">
+
+</div>
 </div>
 <script>
     const URL_TASK ='http://localhost:8080/task';
+    const form = document.getElementById('welcome');
+    const div = document.getElementById('welcomeDiv');
     document.getElementById('addTask').addEventListener('click',(event)=>{
         event.preventDefault();
-        fetch(URL_TASK, {
-        method: 'GET',
-        body: 'foo=bar&lorem=ipsum'
-        })
-        .then(res=>res.text())
-        .then(t => {
-            // Handle response 
-            console.log('Response: ', t);
-        })
-
+        const task = {
+            id: form.elements.id.value,
+            description: form.elements.description.value,
+            userId: form.elements.userId.value
+        };
+        fetch('http://localhost:8080/task?' + new URLSearchParams(task))
+        .then((response)=>response.json())
+        .then((json)=>{
+            div.innerHTML = `
+                <h1>${JSON.stringify(json)}</h1>
+            
+            `;
+            // console.log(json);
+        });
     });
-
-
-
 
 
 </script>
