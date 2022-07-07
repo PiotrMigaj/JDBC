@@ -67,6 +67,7 @@ public class App {
 	public static void delete(Connection connection){
 		try (Statement statement = connection.createStatement()){
 			String sql = "DELETE FROM MOVIES WHERE id = 2";
+			statement.execute(sql);
 		}catch (SQLException e){
 			e.printStackTrace();
 		}
